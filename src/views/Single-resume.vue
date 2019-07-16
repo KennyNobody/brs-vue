@@ -96,7 +96,6 @@
 			width: 100%;
 			max-width: 260px;
 			height: 245px;
-			background-color: red;
 			margin-bottom: 10px;
 			img {
 				display: block;
