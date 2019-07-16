@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap&subset=cyrillic');
+@import url('https://fonts.googleapis.com/css?family=PT+Serif:400,700&display=swap&subset=cyrillic');
+
+.body {
+	font-size: 16px;
+	line-height: 1.35;
+	font-family: $roboto;
+	font-smoothing: antialiased;
+}
+
+.container {
+	width: 1070px;
+	max-width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+	position: relative;
+}
+
+.h2 {
+	color: $dark;
+	margin-bottom: 40px;
+	font-family: $ptserif;
+	font-weight: bold;
+	font-size: 44px;
+	line-height: 48px;
+	&--accent {
+		color: $accent;
+	}
+	&--yellow {
+		color: $yellow;
+	}
+	&--link {
+		color: $accent;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+svg, a {
+	transition: 0.3s all;
+}
