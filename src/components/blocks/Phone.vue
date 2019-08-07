@@ -4,7 +4,7 @@
             Показать телефон
         </p>
         <p class="phone__number">
-            8 952 ХХХ-ХХ-ХХ
+            {{ phone }}
         </p>
     </div>
 </template>
@@ -12,7 +12,7 @@
 <script>
     export default {
       name: 'appPhone',
-      props: {},
+      props: ['phone'],
       methods: {}
   }
 </script>

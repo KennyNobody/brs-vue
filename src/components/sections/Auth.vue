@@ -15,15 +15,15 @@
 					</p>
 					<label class="auth__label">
 						<p class="auth__label-title">
-							E-mail
+							E-mail <strong>{{ errors.first('email') }}</strong>
 						</p>
-						<input type="text" class="auth__input">
+						<input type="text" v-validate="'required|email'" name="email" class="auth__input" v-model="email" v-on:input="checkForm">
 					</label>
 					<label class="auth__label">
 						<p class="auth__label-title">
-							E-mail
+							Пароль <strong>{{ errors.first('password') }}</strong>
 						</p>
-						<input type="text" class="auth__input">
+						<input type="password" class="auth__input" v-validate="'required|min:8'" name="password" v-model="password" v-on:input="checkForm">
 					</label>
 					<div class="auth__control">
 						<label class="auth__check">
@@ -41,7 +41,7 @@
 							Забыли пароль?
 						</a>
 					</div>
-					<button class="auth__submit">
+					<button class="auth__submit" v-on:click.prevent='submitForm' v-bind:class="{'auth__submit--disabled' : !valid, 'auth__submit--disabled': loading }">
 						Войти
 					</button>
 					<div class="auth__separator">или войти через</div>
@@ -56,7 +56,10 @@
 					</a>
 					<div class="auth__hr"></div>
 					<p class="auth__without-profile">
-						Нет аккаунта? <a href="#" class="auth__without-profile--accent">Зарегистрироваться</a>
+						Нет аккаунта?
+						<router-link class="auth__without-profile--accent" to="/registration">
+							Зарегистрироваться
+						</router-link>
 					</p>
 				</form>
 			</div>
@@ -65,9 +68,49 @@
 </template>
 
 <script>
+	import Vue from 'vue'
+	import VeeValidate from 'vee-validate'
+	import dictionary from '@/validationDictionary'
+
+	Vue.use(VeeValidate, {
+		locale: 'ru',
+		dictionary: dictionary
+	})
+
 	export default {
 		name: 'appAuth',
-		props: {}
+		props: {},
+		data () {
+			return {
+				email: '',
+				password: '',
+				valid: false
+			}
+		},
+		computed: {
+			loading () {
+				return this.$store.getters.loading
+			}
+		},
+		methods: {
+			checkForm: function () {
+				this.$validator.validateAll().then(res => {
+					if (res) {
+						this.valid = true
+					} else {
+						this.valid = false
+					}
+				})
+			},
+			submitForm: function () {
+				const user = {
+					email: this.email,
+					password: this.password
+				}
+
+				this.$store.dispatch('loginUser', user)
+			}
+		}
 	}
 </script>
 
@@ -108,6 +151,10 @@
 		}
 		&__label-title {
 			margin-bottom: 4px;
+			strong {
+				font-size: 12px;
+				color: #DD4B39;
+			}
 		}
 		&__input {
 			display: block;
@@ -117,6 +164,7 @@
 			font-size: 16px;
 			height: 35px;
 			color: $dark;
+			outline: none;
 		}
 		&__control {
 			display: flex;
@@ -183,8 +231,13 @@
 			height: 40px;
 			transition: 0.3s all;
 			margin-bottom: 54px;
+			outline: none;
 			&:hover {
 				opacity: 0.8;
+			}
+			&--disabled {
+				pointer-events: none;
+				background-color: #D6E0E6;
 			}
 		}
 		&__separator {

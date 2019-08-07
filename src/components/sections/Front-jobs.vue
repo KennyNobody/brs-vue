@@ -5,14 +5,7 @@
 				Новые <router-link class="h2--link" to="/jobs/">вакансии</router-link>
 			</h2>
 			<div class="front-jobs__articles">
-				<appFrontJob></appFrontJob>
-				<appFrontJob></appFrontJob>
-				<appFrontJob></appFrontJob>
-				<appFrontJob></appFrontJob>
-				<appFrontJob></appFrontJob>
-				<appFrontJob></appFrontJob>
-				<appFrontJob></appFrontJob>
-				<appFrontJob></appFrontJob>
+				<appFrontJob v-for="job in jobs" :key="job.id" :title="job.title" :publish="job.publish" :id="job.id" :thumb="job.thumb" :city='job.city' :price="job.price" :organization='job.organization' :shedule='job.shedule'></appFrontJob>
 			</div>
 		</div>
 	</section>
@@ -25,6 +18,11 @@
 		components: {
 			appFrontJob
 		},
+		computed: {
+            jobs () {
+                return this.$store.getters.jobs
+            }
+        },
 		props: {}
 	}
 </script>

@@ -1,10 +1,13 @@
 <template>
 	<section class="intro">
-		<div class="intro__wrapper intro__wrapper--front">
-			<div class="intro__navline intro__navline--front">
+		<div class="intro__wrapper" v-bind:class="{ 'intro__wrapper--front': $route.name === 'home' }">
+			<div class="intro__navline" v-bind:class="{ 'intro__navline--front': $route.name === 'home', 'intro__navline--drop': openDropMenu }">
 				<div class="container intro__nav-container">
-					<div class="intro__burger">
-						<svg viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<div class="intro__burger" v-on:click="openDropMenu = !openDropMenu">
+						<svg class="intro__burger-icon intro__burger-icon--opened" v-if="openDropMenu == true" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" key='1'>
+							<path d="M1 1L15 15M15 1L1 15" stroke-width="2"/>
+						</svg>
+						<svg class="intro__burger-icon intro__burger-icon--closed" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg" v-else key='2'>
 							<rect width="16" height="2"/>
 							<rect y="5" width="16" height="2"/>
 							<rect y="10" width="16" height="2"/>
@@ -23,6 +26,17 @@
 					</div>
 					<appSocialLinks></appSocialLinks>
 				</div>
+				<transition name="intro__drop-animate">
+					<div class="intro__drop" v-show="openDropMenu == true">
+						<div class="container intro__drop-container">
+							<nav class="intro__drop-nav">
+								<router-link v-for="link of headerLinks" :key="link.title" class="intro__drop-link" :to="link.url">
+									{{link.title}}
+								</router-link>
+							</nav>
+						</div>
+					</div>
+				</transition>
 			</div>
 			<div v-if="$route.name === 'home'" class="intro__content">
 				<div class="container intro__content-container">
@@ -48,7 +62,17 @@
 
 	export default {
 		name: 'appIntro',
+		data () {
+			return {
+				openDropMenu: false
+			}
+		},
 		props: {},
+		computed: {
+            headerLinks () {
+                return this.$store.getters.content.links.headerLinks
+            }
+        },
 		components: {
 			appSocialLinks
 		}
@@ -90,8 +114,48 @@
 			padding-bottom: 8px;
 			display: flex;
 			justify-content: space-between;
+			position: relative;
+			z-index: 3;
+			background-color: $dark;
+			transition: 0.3s all;
 			&--front {
 				background: rgba(37, 44, 47, 0.8);
+			}
+			&--drop {
+				background-color: $dark;
+			}
+		}
+		&__drop {
+			position: absolute;
+			top: 100%;
+			left: 0px;
+			right: 0px;
+			color: $light;
+			background-color: $dark;
+			padding-bottom: 15px;
+			padding-top: 15px;
+		}
+		&__drop-animate-enter-active, &__drop-animate-leave-active {
+			transition: opacity .3s;
+		}
+		&__drop-animate-enter, &__drop-animate-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+			opacity: 0;
+		}
+		&__drop-nav {
+			padding-left: 71px;
+			display: flex;
+			flex-wrap: wrap;
+		}
+		&__drop-link {
+			font-size: 14px;
+			line-height: 16px;
+			color: $light;
+			text-decoration: none;
+			display: block;
+			margin-bottom: 30px;
+			width: 40%;
+			&:hover {
+				text-decoration: underline;
 			}
 		}
 		&__burger {
@@ -101,10 +165,15 @@
 					fill: $accent;
 				}
 			}
-			svg {
+		}
+		&__burger-icon {
+			width: 16px;
+			height: 12px;
+			&--opened {
+				stroke: #FECA28
+			}
+			&--closed {
 				fill: $light;
-				width: 16px;
-				height: 12px;
 			}
 		}
 		&__links {

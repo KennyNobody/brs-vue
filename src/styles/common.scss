@@ -43,3 +43,14 @@
 svg, a {
 	transition: 0.3s all;
 }
+
+input, button, textarea {
+	font-size: 16px;
+	line-height: 1.35;
+	font-family: $roboto;
+}
+
+button {
+	cursor: pointer;
+	transition: 0.3s all;
+}

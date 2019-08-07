@@ -1,23 +1,23 @@
 <template>
     <article class="front-article">
         <div class="front-article__thumb">
-            <img src="http://placehold.it/1000x600" alt="Превью новости">
+            <img v-bind:src="thumb" alt="Превью новости">
         </div>
         <div class="front-article__content">
             <div class="front-article__info">
                 <time class="front-article__date">
-                    21 апреля 2019
+                    {{ publish }}
                 </time>
                 <h3 class="front-article__title" v-line-clamp='4'>
-                    Абстрактный заголовок новости, который ничего не означает. Но он обязательно должен быть длиннее четыре строк, так нужно
+                    {{ title }}
                 </h3>
             </div>
-            <a href="#" class="front-article__btn">
+            <router-link class="front-article__btn" :to='"/news/" + id'>
                 <span>Подробнее</span>
                 <svg viewBox="0 0 7 10" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1 1L5 5L1 9" />
                 </svg>
-            </a>
+            </router-link>
         </div>
     </article>
 </template>
@@ -30,7 +30,7 @@
 
     export default {
         name: 'appFrontArticle',
-        props: {}
+        props: ['title', 'publish', 'thumb', 'link', 'id']
     }
 </script>
 
@@ -87,6 +87,7 @@
             text-decoration: none;
             color: $dark;
             border-top: 1px solid #D6E0E6;
+            border-left: 1px solid #D6E0E6;
             svg {
                 margin-left: 13px;
                 stroke: $dark;

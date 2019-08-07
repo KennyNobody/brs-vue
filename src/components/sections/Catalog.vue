@@ -8,12 +8,13 @@
 			<div class="catalog__content">
 				<div class="catalog__items">
 					<template v-if="$route.name === 'jobs'">
-						<appFrontJob v-for="article in articlesCount" v-bind:key="article.id"></appFrontJob>
+						<appFrontJob v-for="job in jobs" :key="job.id" :title="job.title" :publish="job.publish" :id="job.id" :thumb="job.thumb" :city='job.city' :price="job.price" :organization='job.organization' :shedule='job.shedule'></appFrontJob>
+						<div class="front-job--clear"></div>
 					</template>
 					<template v-if="$route.name === 'resumes'">
-						<appFrontResume v-for="article in articlesCount" v-bind:key="article.id"></appFrontResume>
+						<appFrontResume v-for='resume in resumes' :key='resume.id' :name='resume.name' :surname='resume.surname' :publish='resume.publish' :thumb='resume.thumb' :id='resume.id' :city='resume.city' :shedule='resume.shedule' :content='resume.content'></appFrontResume>
+						<div class="front-resume--clear"></div>
 					</template>
-
 				</div>
 				<div class="catalog__side">
 					<appSidebar></appSidebar>
@@ -36,11 +37,14 @@
 	export default {
 		name: 'appCatalog',
 		props: ['typeCatalog'],
-		data () {
-			return {
-				articlesCount: 12
-			}
-		},
+		computed: {
+            jobs () {
+                return this.$store.getters.jobs
+            },
+            resumes () {
+                return this.$store.getters.resumes
+            }
+        },
 		components: {
 			appFrontJob,
 			appFrontResume,

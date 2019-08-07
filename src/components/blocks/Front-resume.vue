@@ -2,33 +2,27 @@
 	<article class="front-resume">
 		<div class="front-resume__content">
 			<div class="front-resume__avatar">
-				<img src="http://placehold.it/1000x600" alt="Иван Иванов">
+				<img v-bind:src="thumb" v-bind:alt='name + " " + surname'>
 			</div>
 			<p class="front-resume__title" v-line-clamp='2'>
-				Алевтина <br> Пельмешкина
+				{{ name }} <br> {{ surname }}
 			</p>
 			<div class="front-resume__location">
 				<svg viewBox="0 0 9 12" xmlns="http://www.w3.org/2000/svg">
 					<path d="M4.43823 0.00250112C2.00127 -0.0796255 0 1.87139 0 4.28979C0 7.03441 2.63389 9.02627 4.11019 11.8908C4.18514 12.0363 4.39451 12.0365 4.46972 11.891C5.80524 9.31351 8.08783 7.58514 8.51084 5.10199C8.94884 2.53242 7.04334 0.0903287 4.43823 0.00250112ZM4.28975 6.53679C3.04878 6.53679 2.04275 5.53074 2.04275 4.28979C2.04275 3.04885 3.0488 2.04279 4.28975 2.04279C5.53071 2.04279 6.53677 3.04885 6.53677 4.28979C6.53677 5.53074 5.53071 6.53679 4.28975 6.53679Z"/>
 				</svg>
 				<p class="front-resume__location-text">
-					Калиниград
+					{{ city }}
 				</p>
 			</div>
-			<p class="front-resume__type front-resume__type--full">
-				полная занятость
+			<appFullday v-if='shedule === "Полная"'></appFullday>
+			<appPartialday v-else-if='shedule === "Частичная"'></appPartialday>
+			<appProbation v-else></appProbation>
+			<p class="front-resume__discript" v-line-clamp='2'>
+				{{ content }}
 			</p>
-            <!-- <p class="front-resume__type front-resume__type--nonfull">
-                стажировка
-            </p>
-            <p class="front-resume__type front-resume__type--partial">
-                частичная занятость
-            </p> -->
-            <p class="front-resume__discript" v-line-clamp='2'>
-				Хотела бы работать с людьми, брать интервью, писать статьи, танцевать танцульки
-            </p>
-        </div>
-        <router-link class="front-resume__btn" to="/resumes/resume">
+		</div>
+		<router-link class="front-resume__btn" :to='"/resumes/" + id'>
 			<span>Подробнее</span>
 			<svg viewBox="0 0 7 10" xmlns="http://www.w3.org/2000/svg">
 				<path d="M1 1L5 5L1 9" />
@@ -40,12 +34,20 @@
 <script>
 	import Vue from 'vue'
 	import lineClamp from 'vue-line-clamp'
+	import appFullday from '@/components/blocks/Full-day.vue'
+	import appPartialday from '@/components/blocks/Partial-day.vue'
+	import appProbation from '@/components/blocks/Probation.vue'
 
 	Vue.use(lineClamp)
 
 	export default {
 		name: 'appFrontResume',
-		props: {}
+		components: {
+			appFullday,
+			appPartialday,
+			appProbation
+		},
+		props: ['name', 'surname', 'publish', 'thumb', 'city', 'content', 'id', 'shedule']
 	}
 </script>
 
@@ -62,6 +64,10 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		&--clear {
+			width: calc(100% / 4 - 15px);
+			min-width: 245px;
+		}
 		&__content {
 			padding-top: 11px;
 			padding-right: 8px;

@@ -21,7 +21,7 @@
 					</a>
 				</div>
 				<div class="news__articles">
-					<appFrontArticle v-for="article in articlesCount" v-bind:key="article.id"></appFrontArticle>
+					<appFrontArticle v-for="post in posts" :key="post.id" :id="post.id" :title="post.title" :publish="post.publish" :link="post.link" :thumb="post.thumb"></appFrontArticle>
 				</div>
 				<div class="news__control">
 					<appPagination></appPagination>
@@ -39,11 +39,11 @@
 	import appFrontArticle from '@/components/blocks/Front-article.vue'
 	export default {
 		name: 'news',
-		data () {
-			return {
-				articlesCount: 8
-			}
-		},
+		computed: {
+            posts () {
+                return this.$store.getters.posts
+            }
+        },
 		props: {},
 		components: {
 			appBreadcrumbs,

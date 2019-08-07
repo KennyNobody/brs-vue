@@ -7,53 +7,30 @@
                         <img src="img/logo.png" alt="Логотип БРС">
                     </router-link>
                     <div class="footer__phone-links">
-                        <a href="tel:+74012595596" class="footer__phone">(4012) 595-596 </a>,
-                        <a href="tel:+74012466422" class="footer__phone">(4012) 466-422</a>
+
+                        <a v-if="phone1" v-bind:href="phone1link" class="footer__phone">{{ phone1 }}</a>
+                        <template v-if="phone2">
+                            ,
+                        </template>
+                        <a v-if="phone2" v-bind:href="phone2link" class="footer__phone">{{ phone2 }}</a>
                     </div>
                     <p class="footer__adress">
-                        236016, г. Калининград, ул. А. Невского, 14
+                        {{ adress }}
                     </p>
                     <p class="footer__time">
-                        Пн-Чт с 9.00 до 18.00<br> Пт с 9.00 до 16.45
+                        {{ sheduleTop }}<br>{{ sheduleBottom }}
                     </p>
                     <appSocialLinks></appSocialLinks>
                 </div>
                 <div class="footer__column footer__column--2">
-                    <a href="" class="footer__link">
-                        Работодателю
-                    </a>
-                    <a href="" class="footer__link">
-                        Студенту
-                    </a>
-                    <a href="" class="footer__link">
-                        Вакансии
-                    </a>
-                    <a href="" class="footer__link">
-                        Резюме
-                    </a>
-                    <a href="" class="footer__link">
-                        Центр карьеры
-                    </a>
-                    <a href="" class="footer__link">
-                        Новости
-                    </a>
+                    <router-link v-for="link of footerLeftColumns" :key="link.title" class="footer__link" :to="link.url">
+                        {{link.title}}
+                    </router-link>
                 </div>
                 <div class="footer__column footer__column--6">
-                    <a href="" class="footer__link">
-                        Студенческие отряды
-                    </a>
-                    <a href="" class="footer__link">
-                        Проектный офис студенческих инициатив
-                    </a>
-                    <a href="" class="footer__link">
-                        Разрешение на работу для иностранных граждан
-                    </a>
-                    <a href="" class="footer__link">
-                        Полезные ссылки
-                    </a>
-                    <a href="" class="footer__link">
-                        Мониторинг трудоустройства выпускников
-                    </a>
+                    <router-link v-for="link of footerRightColumns" :key="link.title" class="footer__link" :to="link.url">
+                        {{link.title}}
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -72,6 +49,35 @@
       name: 'appFooter',
       components: {
         appSocialLinks
+    },
+    computed: {
+        adress () {
+            return this.$store.getters.content.info.adress
+        },
+        footerLeftColumns () {
+            return this.$store.getters.content.links.footerLeftColumns
+        },
+        footerRightColumns () {
+            return this.$store.getters.content.links.footerRightColumns
+        },
+        sheduleTop () {
+            return this.$store.getters.content.info.sheduleTop
+        },
+        sheduleBottom () {
+            return this.$store.getters.content.info.sheduleBottom
+        },
+        phone1 () {
+            return this.$store.getters.content.info.phone1
+        },
+        phone1link () {
+            return this.$store.getters.content.info.phone1link
+        },
+        phone2 () {
+            return this.$store.getters.content.info.phone2
+        },
+        phone2link () {
+            return this.$store.getters.content.info.phone2link
+        }
     },
     props: {}
 }
