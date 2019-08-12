@@ -105,6 +105,9 @@
 			appBreadcrumbs,
 			appFrontArticle,
 			appToTopBlock
+		},
+		mounted() {
+			console.log(this.$store.getters)
 		}
 	}
 </script>

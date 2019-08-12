@@ -41,30 +41,30 @@
 							Забыли пароль?
 						</a>
 					</div>
-					<button class="auth__submit" v-on:click.prevent='submitForm' v-bind:class="{'auth__submit--disabled' : !valid, 'auth__submit--disabled': loading }">
-						Войти
-					</button>
-					<div class="auth__separator">или войти через</div>
-					<a href="#" class="auth__soc-link auth__soc-link--google">
-						<span>Google</span>
-					</a>
-					<a href="#" class="auth__soc-link auth__soc-link--vk">
-						<span>ВКонтакте</span>
-					</a>
-					<a href="#" class="auth__soc-link auth__soc-link--fb">
-						<span>Facebook</span>
-					</a>
-					<div class="auth__hr"></div>
-					<p class="auth__without-profile">
-						Нет аккаунта?
-						<router-link class="auth__without-profile--accent" to="/registration">
-							Зарегистрироваться
-						</router-link>
-					</p>
-				</form>
-			</div>
-		</div>
+					<button class="auth__submit" v-on:click.prevent='submitForm' v-bind:class="{'auth__submit--disabled' : !valid }">
+				Войти
+			</button>
+			<div class="auth__separator">или войти через</div>
+			<a href="#" class="auth__soc-link auth__soc-link--google">
+				<span>Google</span>
+			</a>
+			<a href="#" class="auth__soc-link auth__soc-link--vk">
+				<span>ВКонтакте</span>
+			</a>
+			<a href="#" class="auth__soc-link auth__soc-link--fb">
+				<span>Facebook</span>
+			</a>
+			<div class="auth__hr"></div>
+			<p class="auth__without-profile">
+				Нет аккаунта?
+				<router-link class="auth__without-profile--accent" to="/registration">
+					Зарегистрироваться
+				</router-link>
+			</p>
+		</form>
 	</div>
+</div>
+</div>
 </template>
 
 <script>
@@ -85,11 +85,6 @@
 				email: '',
 				password: '',
 				valid: false
-			}
-		},
-		computed: {
-			loading () {
-				return this.$store.getters.loading
 			}
 		},
 		methods: {

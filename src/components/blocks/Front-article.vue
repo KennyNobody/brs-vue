@@ -30,7 +30,7 @@
 
     export default {
         name: 'appFrontArticle',
-        props: ['title', 'publish', 'thumb', 'link', 'id']
+        props: ['title', 'publish', 'thumb', 'id']
     }
 </script>
 

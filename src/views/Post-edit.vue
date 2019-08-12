@@ -4,6 +4,15 @@
 		<section class="editor">
 			<div class="container">
 				<h2 class="h2">Добавить запись</h2>
+				<label class="editor__h">
+					<p class="editor__title">
+						Название поста
+					</p>
+					<input type="text" v-model='postTitle' v-validate="'required'" name="postTitle" v-on:input="checkForm">
+				</label>
+				<p class="editor__error">
+					{{ errors.first('postTitle') }}
+				</p>
 				<editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
 					<div class="menubar">
 
@@ -127,14 +136,22 @@
 				</editor-menu-bubble>
 
 				<editor-content class="editor__content" :editor="editor" />
+				<button class="editor__btn" v-on:click.prevent='createPost' v-bind:class="{'editor__btn--disabled' : !valid }">
+					Отправить
+				</button>
+				<appToTopBlock></appToTopBlock>
 			</div>
 		</section>
 	</div>
 </template>
 
 <script>
+	import Vue from 'vue'
 	import appBreadcrumbs from '@/components/sections/Breadcrumbs.vue'
+	import VeeValidate from 'vee-validate'
+	import dictionary from '@/validationDictionary'
 	import { Editor, EditorContent, EditorMenuBar, EditorMenuBubble } from 'tiptap'
+	import appToTopBlock from '@/components/blocks/To-top-block.vue'
 	import {
 		Blockquote,
 		CodeBlock,
@@ -154,11 +171,17 @@
 		History
 	} from 'tiptap-extensions'
 
+	Vue.use(VeeValidate, {
+		locale: 'ru',
+		dictionary: dictionary
+	})
+
 	export default {
 		name: 'postEdit',
 		components: {
 			EditorMenuBar,
 			EditorContent,
+			appToTopBlock,
 			EditorMenuBubble,
 			appBreadcrumbs
 		},
@@ -186,14 +209,24 @@
 					content: '<p>Это большой пост о всяком, разном. Вот пример <strong>strong</strong> и <em>italic</em>. <s>Перечеркнутый</s> текст и <u>подчеркнутый</u> снизу<br></p><h1>Заголовок 1</h1><p><br></p><h2>Заголовок 2</h2><p><br></p><h3>Заголовок 3</h3><p><br></p><p>Теперь примеры списков:</p><p><br></p><ul><li><p>Пункт 1</p></li><li><p>Пункт 2</p></li><li><p>Пункт 3</p></li></ul><p><br></p><ol><li><p>Пункт 1</p></li><li><p>Пункт 2</p></li><li><p>Пункт 3</p></li></ol><p><br></p><blockquote><p>И блок цитаты. Я сделаю его в несколько строк, чтобы было понятнее. Я сделаю его в несколько строк, чтобы было понятнее.Я сделаю его в несколько строк, чтобы было понятнее.Я сделаю его в несколько строк, чтобы было понятнее.Я сделаю его в несколько строк, чтобы было понятнее.Я сделаю его в несколько строк, чтобы было понятнее.Я сделаю его в несколько строк, чтобы было понятнее.Я сделаю его в несколько строк, чтобы было понятнее.</p></blockquote>',
 					onUpdate: ({ getHTML }) => {
 						this.postContent = getHTML()
-						console.log(this.postContent)
 					}
 				}),
+				valid: false,
+				id: null,
 				linkUrl: null,
 				linkMenuIsActive: false,
+				postTitle: '',
 				postContent: ''
 			}
 		},
+		mounted () {
+			this.id = this._uid
+		},
+		// computed: {
+		// 	loading () {
+		// 		return this.$store.getters.loading
+		// 	}
+		// },
 		methods: {
 			showImagePrompt (command) {
 				const src = prompt('Введите url изображения')
@@ -216,6 +249,35 @@
 				command({ href: url })
 				this.hideLinkMenu()
 				this.editor.focus()
+			},
+			checkForm () {
+				this.$validator.validateAll().then(res => {
+					if (res) {
+						this.valid = true
+					} else {
+						this.valid = false
+					}
+					console.log(this.valid)
+				})
+			},
+			createPost () {
+				const post = {
+					content: this.postContent,
+					id: 'post_' + (Math.random()),
+					ownerId: null,
+					publish: '20 мая 2019',
+					thumb: 'http://placehold.it/1000x600',
+					title: this.postTitle
+				}
+
+				if (post) {
+					// console.log(post)
+					this.$store.dispatch('createPost', post)
+					.then(() => {
+						this.$router.push('/news')
+					})
+					.catch(() => {})
+				}
 			}
 		},
 		beforeDestroy () {
@@ -227,10 +289,27 @@
 <style lang="scss">
 	.editor {
 		padding-top: 35px;
-		margin-bottom: 100px;
+		&__h {
+			display: block;
+			margin-bottom: 40px;
+			input {
+				display: block;
+				height: 40px;
+				width: 100%;
+				border: 1px solid $accent;
+				border-radius: 4px;
+				padding-left: 15px;
+				padding-right: 15px;
+				outline: none;
+			}
+		}
+		&__title {
+			margin-bottom: 5px;
+		}
 		&__content {
 			border: 1px solid $accent;
 			border-radius: 4px;
+			margin-bottom: 40px;
 			.ProseMirror {
 				padding: 15px;
 				outline: none;
@@ -300,10 +379,29 @@
 				}
 			}
 		}
+		&__btn {
+			height: 40px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: $accent;
+			color: $light;
+			border-radius: 4px;
+			border: none;
+			width: 174px;
+			outline: none;
+			&:hover {
+				opacity: 0.8;
+			}
+			&--disabled {
+				pointer-events: none;
+				background-color: #D6E0E6;
+			}
+		}
 	}
 	.menubar {
 		display: flex;
-		margin-bottom: 30px;
+		margin-bottom: 20px;
 		&__button {
 			height: 26px;
 			display: inline-flex;
