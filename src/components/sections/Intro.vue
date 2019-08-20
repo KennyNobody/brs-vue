@@ -69,12 +69,17 @@
 		},
 		props: {},
 		computed: {
-            headerLinks () {
-                return this.$store.getters.content.links.headerLinks
-            }
-        },
+			headerLinks () {
+				return this.$store.getters.content.links.headerLinks
+			}
+		},
 		components: {
 			appSocialLinks
+		},
+		watch: {
+			$route (to, from) {
+				this.openDropMenu = false
+			}
 		}
 	}
 </script>

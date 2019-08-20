@@ -2,7 +2,7 @@
 	<section class="breadcrumbs">
 		<div class="container breadcrumbs__container">
 			<nav class="breadcrumbs__nav">
-				<router-link class="breadcrumbs__link" to="/">
+				<!-- <router-link class="breadcrumbs__link" to="/">
 					Главная
 				</router-link>
 				<div class="breadcrumbs__decor">
@@ -12,17 +12,61 @@
 				</div>
 				<span class="breadcrumbs__link breadcrumbs__link--now">
 					Страница
-				</span>
-			</nav>
-		</div>
-	</section>
+				</span> -->
+				<template v-for="(breadcrumb, index) in breadcrumbList" >
+					<div class="breadcrumbs__link" :key="index" @click="routeTo(index)" :class="{'linked': !!breadcrumb.link}">
+						{{ breadcrumb.name }}
+					</div>
+					<div class="breadcrumbs__decor" :key="index" v-if="!!breadcrumb.link">
+						<svg viewBox="0 0 7 10" xmlns="http://www.w3.org/2000/svg">
+							<path d="M1 1L5 5L1 9"/>
+						</svg>
+					</div>
+				</template>
+<!-- 				<ul>
+					<li
+					v-for="(breadcrumb, idx) in breadcrumbList"
+					:key="idx"
+					@click="routeTo(idx)"
+					:class="{'linked': !!breadcrumb.link}">
+
+					{{ breadcrumb.name }}
+
+				</li>
+			</ul> -->
+		</nav>
+	</div>
+</section>
 </template>
 
 <script>
 	export default {
 		name: 'appBreadcrumbs',
 		props: {},
-		components: {}
+		components: {},
+		data () {
+			return {
+				breadcrumbList: []
+			}
+		},
+		mounted () {
+			this.updateList()
+		},
+		methods: {
+			routeTo (pRouteTo) {
+				if (this.breadcrumbList[pRouteTo].link) {
+					this.$router.push(this.breadcrumbList[pRouteTo].link)
+				}
+			},
+			updateList () {
+				this.breadcrumbList = this.$route.meta.breadcrumb
+			}
+		},
+		watch: {
+			'$route' () {
+				this.updateList()
+			}
+		}
 	}
 </script>
 

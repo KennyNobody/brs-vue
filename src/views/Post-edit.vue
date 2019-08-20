@@ -271,7 +271,6 @@
 				}
 
 				if (post) {
-					// console.log(post)
 					this.$store.dispatch('createPost', post)
 					.then(() => {
 						this.$router.push('/news')

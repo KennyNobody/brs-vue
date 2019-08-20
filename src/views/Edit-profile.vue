@@ -5,7 +5,7 @@
 			<div class="container">
 				<form class="form">
 					<h2 class="h2">
-						Регистрация
+						Редактировать профиль
 					</h2>
 					<div class="form__columns">
 						<div class="form__column form__column--left">
@@ -13,7 +13,7 @@
 								<p class="form__title">
 									Данные аккаунта
 								</p>
-								<appTextInput v-on:inputChanged="email = $event" name='Email'></appTextInput>
+								<appTextInput v-on:inputChanged="email = $event" name='Email' v-bind:placeholder="email"></appTextInput>
 								<appTextInput v-on:inputChanged="password = $event" name='Пароль'></appTextInput>
 								<appTextInput v-on:inputChanged="passwordAgain = $event" name='Повторите пароль'></appTextInput>
 							</div>
@@ -21,29 +21,29 @@
 								<p class="form__title">
 									Контактная информация
 								</p>
-								<appTextInput v-on:inputChanged="name = $event" name='Имя'></appTextInput>
-								<appTextInput v-on:inputChanged="surname = $event" name='Фамилия'></appTextInput>
-								<appTextInput v-on:inputChanged="phone = $event" name='Телефон'></appTextInput>
+								<appTextInput v-on:inputChanged="name = $event" name='Имя' v-bind:placeholder="name"></appTextInput>
+								<appTextInput v-on:inputChanged="surname = $event" name='Фамилия' v-bind:placeholder="surname"></appTextInput>
+								<appTextInput v-on:inputChanged="phone = $event" name='Телефон' v-bind:placeholder="phone"></appTextInput>
 							</div>
 							<div class="form__section">
 								<p class="form__title">
 									Параметры
 								</p>
-								<appTextInput v-on:inputChanged="education = $event" name='Образование'></appTextInput>
+								<appTextInput v-on:inputChanged="education = $event" name='Образование' v-bind:placeholder="education"></appTextInput>
 								<appRadioInput v-on:inputChanged="sex = $event" name='Пол'></appRadioInput>
 								<appDateInput v-on:inputDayChanged="birthDay = $event" v-on:inputMounthChanged="birthMounth = $event" v-on:inputYearChanged="birthYear = $event" name='Дата рождения'></appDateInput>
-								<appTextareaInput v-on:inputChanged="info = $event" name='О себе'></appTextareaInput>
-								<appTextInput v-on:inputChanged="country = $event" name='Гражданство'></appTextInput>
+								<appTextareaInput v-on:inputChanged="info = $event" name='О себе' v-bind:placeholder="info"></appTextareaInput>
+								<appTextInput v-on:inputChanged="country = $event" name='Гражданство' v-bind:placeholder="country"></appTextInput>
 							</div>
 							<div class="form__section form__section--dropdown">
 								<template v-if="showRegCompany">
 									<p class="form__title">
 										Об организации
 									</p>
-									<appTextInput v-on:inputChanged="formOrganization = $event" name='Организационная форма'></appTextInput>
-									<appTextInput v-on:inputChanged="companyName = $event" name='Название компании'></appTextInput>
-									<appTextInput v-on:inputChanged="inn = $event" name='ИНН'></appTextInput>
-									<appTextInput v-on:inputChanged="city = $event" name='Город'></appTextInput>
+									<appTextInput v-on:inputChanged="formOrganization = $event" name='Организационная форма' v-bind:placeholder="formOrganization"></appTextInput>
+									<appTextInput v-on:inputChanged="companyName = $event" name='Название компании' v-bind:placeholder="companyName"></appTextInput>
+									<appTextInput v-on:inputChanged="inn = $event" name='ИНН' v-bind:placeholder="inn"></appTextInput>
+									<appTextInput v-on:inputChanged="city = $event" name='Город' v-bind:placeholder="city"></appTextInput>
 								</template>
 								<button class="form__add-company" v-on:click.prevent="showRegCompany = !showRegCompany" v-if='!showRegCompany'>
 									Добавить юрлицо
@@ -72,9 +72,10 @@
 	import appDateInput from '@/components/blocks/InputDate.vue'
 	import appRadioInput from '@/components/blocks/Radio.vue'
 	import appTextareaInput from '@/components/blocks/Textarea.vue'
+	import * as firebase from 'firebase'
 
 	export default {
-		name: 'registration',
+		name: 'editProfile',
 		components: {
 			appBreadcrumbs,
 			appTextInput,
@@ -135,6 +136,32 @@
 					.catch(() => {})
 				}
 			}
+		},
+		mounted () {
+			if (this.$store.getters.localUser.companyName) {
+				this.showRegCompany = true
+			} else {
+				this.showRegCompany = false
+			}
+
+			firebase.database().ref('users').once('value')
+			.then(() => {
+				this.education = this.$store.getters.localUser.education
+				this.sex = this.$store.getters.localUser.sex
+				this.birthDay = this.$store.getters.localUser.birthDay
+				this.birthMounth = this.$store.getters.localUser.birthMounth
+				this.birthYear = this.$store.getters.localUser.birthYear
+				this.info = this.$store.getters.localUser.info
+				this.country = this.$store.getters.localUser.country
+				this.formOrganization = this.$store.getters.localUser.formOrganization
+				this.companyName = this.$store.getters.localUser.companyName
+				this.inn = this.$store.getters.localUser.inn
+				this.city = this.$store.getters.localUser.city
+				this.name = this.$store.getters.localUser.name
+				this.surname = this.$store.getters.localUser.surname
+				this.phone = this.$store.getters.localUser.phone
+				this.email = this.$store.getters.localUser.email
+			})
 		}
 	}
 </script>
@@ -161,9 +188,9 @@
 		}
 		&__section {
 			margin-bottom: 40px;
-			&--dropdown {
-				margin-bottom: 0px;
-			}
+			// &--dropdown {
+			// 	margin-bottom: 0px;
+			// }
 		}
 		&__title {
 			font-weight: bold;

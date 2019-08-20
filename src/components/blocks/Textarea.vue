@@ -3,7 +3,7 @@
 		<p class="textarea__title">
 			{{ name }}
 		</p>
-		<textarea type="text" class="textarea__input" v-model="inputData" v-on:input="postInfo"></textarea>
+		<textarea type="text" class="textarea__input" v-model="inputTextarea" v-on:input="postInfo" v-bind:placeholder="placeholder"></textarea>
 	</label>
 </template>
 
@@ -11,16 +11,16 @@
 
 	export default {
 		name: 'textareaInput',
-		props: ['name'],
+		props: ['name', 'placeholder'],
 		data () {
 			return {
-				inputData: null
+				inputTextarea: null
 			}
 		},
 		computed: {},
 		methods: {
 			postInfo: function () {
-				this.$emit('inputChanged', this.inputData)
+				this.$emit('inputChanged', this.inputTextarea)
 			}
 		}
 	}
@@ -50,8 +50,7 @@
 			border: 1px solid #D6E0E6;
 			border-radius: 4px;
 			height: 40px;
-			padding-left: 10px;
-			padding-right: 10px;
+			padding: 10px;
 			outline: none;
 			height: 206px;
 			resize: none;

@@ -3,14 +3,14 @@
 		<p class="input__title">
 			{{ name }}
 		</p>
-		<input type="text" class="input__input" v-model="inputData" v-on:input="postInfo">
+		<input type="text" class="input__input" v-model="inputData" v-on:input="postInfo" v-bind:placeholder="placeholder">
 	</label>
 </template>
 
 <script>
 	export default {
 		name: 'textInput',
-		props: ['name'],
+		props: ['name', 'placeholder'],
 		data () {
 			return {
 				inputData: null

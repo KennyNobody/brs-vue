@@ -32,18 +32,17 @@
                         <div class="header__user" v-if='isUserLogIn'>
                             <div class="header__info" v-bind:class="{'header__info--open' : openUserInfo }">
                                 <div v-on:click="openUserInfo = !openUserInfo" class="header__info-link header__info-link--left">
-                                    <span>Алевтина</span>
+                                    <span>{{ this.name }}</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 8" fill="none">
                                         <path d="M4.76995e-08 4L6 7.4641L6 0.535898L4.76995e-08 4Z" fill="white"/>
                                     </svg>
                                 </div>
-                                <a href="" class="header__info-link header__info-link--center">Редактировать персональные данные</a>
+                                <router-link class="header__info-link header__info-link--center" to="/profile">
+                                    Перейти в личный кабинет
+                                </router-link>
                                 <div v-on:click="onLogout" class="header__info-link header__info-link--right">Выйти</div>
                             </div>
                         </div>
-<!--                         <router-link class="header__sign" to="/sign-in" >
-                            Авторизован
-                        </router-link> -->
                         <router-link class="header__sign" to="/sign-in" v-else>
                             Войти
                         </router-link>
@@ -64,6 +63,9 @@
         },
         props: {},
         computed: {
+            name () {
+                return this.$store.getters.localUser.name
+            },
             adress () {
                 return this.$store.getters.content.info.adress
             },
@@ -209,6 +211,12 @@
                 min-width: 0px;
                 border-radius: 4px;
                 width: 93px;
+                padding-left: 8px;
+                padding-right: 8px;
+                span {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
             }
             &--center {
                 width: 292px;
@@ -235,6 +243,7 @@
                 height: 8px;
                 width: 8px;
                 transition: 0.3s all;
+                flex-shrink: 0;
             }
         }
         &__sign {

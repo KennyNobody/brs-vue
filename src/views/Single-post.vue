@@ -106,7 +106,7 @@
 			appFrontArticle,
 			appToTopBlock
 		},
-		mounted() {
+		mounted () {
 			console.log(this.$store.getters)
 		}
 	}

@@ -70,23 +70,19 @@
 			appToTopBlock,
 			appAddLogo
 		},
-		computed: {},
+		computed: {
+			loading () {
+				return this.$store.getters.loading
+			}
+		},
 		methods: {
 			submitForm: function () {
-				const regCompanyInfo = {
-					login: this.login,
-					password: this.password,
-					passwordAgain: this.passwordAgain,
-					formOrganization: this.formOrganization,
-					companyName: this.companyName,
-					inn: this.inn,
-					city: this.city,
-					name: this.name,
-					surname: this.surname,
-					phone: this.phone,
-					submit: this.submit
+				const user = {
+					email: this.email,
+					password: this.password
 				}
-				console.log(regCompanyInfo)
+
+				this.$store.dispatch('registerUser', user)
 			}
 		}
 	}

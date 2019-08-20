@@ -339,7 +339,21 @@
 						</svg>
 					</div>
 					<div class="none__content-column">
-						Текст
+						<p class="none__title">
+							Ой, нее...
+						</p>
+						<p class="none__discript">
+							тут нет ни вакансий, ни резюме
+						</p>
+						<p class="none__text">
+							Тут вообще ничего нет, кроме этого инопланетянина. А все потому, что вы попали на страницу 404.
+						</p>
+						<p class="none__text">
+							Так могло случиться, если вы допустили ошибку при написании адреса страницы или страница была перемещена или прекратила своё существование.
+						</p>
+						<router-link class="none__link" to="/">
+							Перейти на главную
+						</router-link>
 					</div>
 				</div>
 			</div>
@@ -361,22 +375,65 @@
 <style lang="scss">
 	.none {
 		padding-top: 24px;
+		margin-bottom: 50px;
 		&__container {
 			position: relative;
 			display: flex;
+		}
+		&__ill-column {
+			z-index: 2;
+		}
+		&__content-column {
+			z-index: 2;
 		}
 		&__bg {
 			height: 100%;
 			width: 100%;
 			object-fit: cover;
 			position: absolute;
-			top: 0px;
+			top: 35px;
 			left: 0px;
 		}
 		&__ill {
 			width: 587px;
 			height: 295px;
 			display: block;
+		}
+		&__title {
+			font-weight: bold;
+			font-size: 44px;
+			line-height: 47px;
+			color: $yellow;
+			font-family: $ptserif;
+		}
+		&__discript {
+			color: $yellow;
+			font-size: 20px;
+			line-height: 24px;
+			font-weight: bold;
+			margin-bottom: 27px;
+		}
+		&__text {
+			margin-bottom: 30px;
+			color: $light;
+		}
+		&__link {
+			border-radius: 4px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: $light;
+			background-color: $accent;
+			font-size: 16px;
+			line-height: 22px;
+			transition: 0.3s all;
+			text-decoration: none;
+			cursor: pointer;
+			width: 255px;
+			height: 40px;
+			&:hover {
+				opacity: 0.75;
+			}
 		}
 	}
 </style>

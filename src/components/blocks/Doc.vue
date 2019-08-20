@@ -33,6 +33,7 @@
         padding-right: 10px;
         padding-left: 10px;
         text-decoration: none;
+        cursor: pointer;
         svg {
             width: 18px;
             height: 24px;

@@ -4,17 +4,18 @@
 			{{ name }}
 		</p>
 		<div class="radio__wrap">
-			<label class="radio__label radio__label--checked">
+			<label class="radio__label" v-on:change="changeRadio" v-bind:class="{ 'radio__label--checked': this.sex === 'Мужской' && 'мужской' }">
 				<div class="radio__label-name">
 					<p>Мужской</p>
 				</div>
-				<input type="radio" v-on:change="changeRadio" name="sex" class="radio__input" value="Мужской" checked>
+				<input type="radio" v-model="sex" name="sex" class="radio__input" value="Мужской">
 			</label>
-			<label class="radio__label">
+			<div class="radio__separator" v-if="!sex"></div>
+			<label class="radio__label" v-on:change="changeRadio" v-bind:class="{ 'radio__label--checked': this.sex === 'Женский' && 'женский' }">
 				<div class="radio__label-name">
 					<p>Женский</p>
 				</div>
-				<input type="radio" v-on:change="changeRadio" name="sex" class="radio__input" value="Мужской">
+				<input type="radio" v-model="sex" name="sex" class="radio__input" value="Женский">
 			</label>
 		</div>
 	</div>
@@ -26,12 +27,14 @@
 		name: 'radioInput',
 		props: ['name'],
 		data () {
-			return {}
+			return {
+				sex: null
+			}
 		},
 		computed: {},
 		methods: {
-			changeRadio: function (e) {
-				console.log('Изменили')
+			changeRadio: function () {
+				this.$emit('inputChanged', this.sex)
 			}
 		}
 	}
@@ -69,12 +72,14 @@
 			align-items: center;
 			border-top: 1px solid #D6E0E6;
 			border-bottom: 1px solid #D6E0E6;
+			transition: 0.3s all;
+			cursor: pointer;
 			&--checked {
 				background-color: $yellow;
 				border-color: $yellow !important;
+				cursor: default;
 			}
 			&:first-child {
-				color: red;
 				border-top-left-radius: 4px;
 				border-bottom-left-radius: 4px;
 				border-left: 1px solid #D6E0E6;
@@ -84,6 +89,16 @@
 				border-bottom-right-radius: 4px;
 				border-right: 1px solid #D6E0E6;
 			}
+			input {
+				display: none;
+			}
+		}
+		&__separator {
+			width: 1px;
+			height: 100%;
+			display: block;
+			background-color: #D6E0E6;
+			transition: 0.3s all;
 		}
 	}
 </style>

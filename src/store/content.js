@@ -43,24 +43,12 @@ export default {
 					url: '/news/'
 				},
 				{
-					title: 'Одиночная новость',
-					url: '/news/1'
-				},
-				{
 					title: 'Страница входа',
 					url: '/sign-in'
 				},
 				{
-					title: 'Регистрация (выбор формата) ДОРИСОВАТЬ',
+					title: 'Регистрация',
 					url: '/registration'
-				},
-				{
-					title: 'Регистрация как соискатель',
-					url: '/registration/user'
-				},
-				{
-					title: 'Регистрация как компания',
-					url: '/registration/company'
 				},
 				{
 					title: 'Страница 404',
@@ -69,6 +57,14 @@ export default {
 				{
 					title: 'Создание поста',
 					url: '/post-edit'
+				},
+				{
+					title: 'Профиль',
+					url: '/profile'
+				},
+				{
+					title: 'Редактировать профиль',
+					url: '/edit-profile'
 				}
 				],
 				footerLeftColumns: [
