@@ -14,6 +14,8 @@
 import appHeader from '@/components/sections/Header.vue'
 import appIntro from '@/components/sections/Intro.vue'
 import appFooter from '@/components/sections/Footer.vue'
+// import * as request from './requests'
+import axios from 'axios'
 
 export default {
     name: 'home',
@@ -26,31 +28,41 @@ export default {
         appHeader,
         appIntro,
         appFooter
+    },
+    mounted() {
+        // axios.get(request.baseUrl, {})
+        // .then((response) => {
+        //     console.log(response.data)
+        // })
+        // .catch(function (error) {
+        //     console.log(error)
+        // });
+        // console.log(request.baseUrl)
     }
 }
 </script>
 
 <style lang="scss">
-    @import "styles/common.scss";
-    @import "styles/reset.scss";
+@import "styles/common.scss";
+@import "styles/reset.scss";
 
-    .layout {
-        height: 100%;
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-        &--dark {
-            background-color: $dark;
+.layout {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    &--dark {
+        background-color: $dark;
+        color: $light;
+        .breadcrumbs__link {
             color: $light;
-            .breadcrumbs__link {
-                color: $light;
-                &--now {
-                    color: $yellow;
-                    &:after {
-                        background-color: $yellow;
-                    }
+            &--now {
+                color: $yellow;
+                &:after {
+                    background-color: $yellow;
                 }
             }
         }
     }
+}
 </style>

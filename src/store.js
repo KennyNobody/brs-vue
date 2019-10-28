@@ -10,6 +10,8 @@ import common from './store/common.js'
 
 Vue.use(Vuex)
 
+// const baseUrl = 'http://www.omdbapi.com/?s=indiana&apikey=b76b385c&page=1&type=movie&Content-Type=application/json'
+
 export default new Vuex.Store({
 	modules: {
 		user, common, posts, jobs, resumes, content
@@ -24,3 +26,5 @@ export default new Vuex.Store({
 
 	}
 })
+
+// console.log(baseUrl)

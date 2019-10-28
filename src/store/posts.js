@@ -1,4 +1,8 @@
 import * as firebase from 'firebase'
+import * as request from '../requests'
+import axios from 'axios'
+
+const baseUrl = 'http://www.omdbapi.com/?s=indiana&apikey=b76b385c&page=1&type=movie&Content-Type=application/json'
 
 class Post {
 	constructor (content, id = null, ownerId, publish, thumb = '', title) {
@@ -55,10 +59,9 @@ export default {
 
 			const resultPosts = []
 
-			try {
-				const firebaseValue = await firebase.database().ref('posts').once('value')
-				const posts = firebaseValue.val()
-
+			axios.get(request.baseUrl, {})
+			.then((response) => {
+				const posts = response.data
 				Object.keys(posts).forEach(key => {
 					let post = posts[key]
 					resultPosts.push(
@@ -74,11 +77,12 @@ export default {
 				})
 				commit('loadPosts', resultPosts)
 				commit('setLoading', false)
-			} catch (error) {
+			})
+			.catch(function (error) {
 				commit('setError', error.message)
 				commit('setLoading', false)
-				throw error
-			}
+				console.log(error)
+			});
 		}
 	},
 	getters: {
