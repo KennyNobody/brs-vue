@@ -4,9 +4,9 @@
 			{{ name }}
 		</p>
 		<div class="input__date-wrap">
-			<input type="number" class="input__date" placeholder="день" v-model="birthDay" v-on:input="postInfo">
-			<input type="number" class="input__date" placeholder="месяц" v-model="birthMounth" v-on:input="postInfo">
-			<input type="number" class="input__date" placeholder="год" v-model="birthYear" v-on:input="postInfo">
+			<input type="number" class="input__date" v-model="birthDay" v-on:input="postInfo" v-bind:placeholder="placeholders.placeholderDay">
+			<input type="number" class="input__date" v-model="birthMounth" v-on:input="postInfo" v-bind:placeholder="placeholders.placeholderMounth">
+			<input type="number" class="input__date" v-model="birthYear" v-on:input="postInfo" v-bind:placeholder="placeholders.placeholderYear">
 		</div>
 	</label>
 </template>
@@ -15,7 +15,7 @@
 
 	export default {
 		name: 'dateInput',
-		props: ['name'],
+		props: ['name', 'placeholders'],
 		data () {
 			return {
 				birthDay: null,

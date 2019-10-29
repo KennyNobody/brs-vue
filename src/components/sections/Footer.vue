@@ -97,18 +97,38 @@
         }
         &__container {
             display: flex;
+            @include r(1200) {
+                display: block;
+                text-align: center;
+            }
         }
         &__column {
             &--4 {
                 width: calc(100% / 12 * 4);
+                @include r(1200) {
+                    width: 100%;
+                }
             }
             &--2 {
                 width: calc(100% / 12 * 2);
                 padding-top: 20px;
+                @include r(1200) {
+                    width: 100%;
+                }
+                @include r(700) {
+                    display: none;
+                }
             }
             &--6 {
                 width: 50%;
                 padding-top: 20px;
+                @include r(1200) {
+                    width: 100%;
+                    padding-top: 0px;
+                }
+                @include r(700) {
+                    display: none;
+                }
             }
         }
         &__logo {
@@ -118,6 +138,10 @@
                 width: 245px;
                 height: auto;
                 display: block;
+                @include r(1200) {
+                    margin-left: auto;
+                    margin-right: auto;
+                }
             }
         }
         &__phone {
@@ -151,6 +175,11 @@
                 text-decoration: none;
                 &:hover {
                     color: $light;
+                }
+            }
+            .container {
+                @include r(1200) {
+                    text-align: center;
                 }
             }
         }

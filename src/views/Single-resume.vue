@@ -27,8 +27,8 @@
 							</p>
 						</div>
 						<div class="s-resume__shedule-block">
-							<appFullday v-if='resume.shedule === "Полная"'></appFullday>
-							<appPartialday v-else-if='resume.shedule === "Частичная"'></appPartialday>
+							<appFullday v-if='resume.shedule === "Полная занятость"'></appFullday>
+							<appPartialday v-else-if='resume.shedule === "Частичная занятость"'></appPartialday>
 							<appProbation v-else></appProbation>
 						</div>
 						<p class="s-resume__line">
@@ -53,13 +53,13 @@
 							<p class="s-resume__doc-text">
 								Прикрепленный документ:
 							</p>
-							<appDoc :file="resume.fileResume"></appDoc>
+							<appDoc :file="resume.file"></appDoc>
 						</div>
 					</div>
 				</div>
 				<p class="s-resume__info">
 					<strong>О себе:</strong>
-					{{ resume.content }}
+					{{ resume.info }}
 				</p>
 				<div class="s-resume__email">
 					<strong>email: </strong>
@@ -70,7 +70,20 @@
 						Другие резюме
 					</h3>
 					<div class="s-resume__other-articles">
-						<appFrontResume v-for='resume in resumes' :key='resume.id' :name='resume.name' :surname='resume.surname' :publish='resume.publish' :thumb='resume.thumb' :id='resume.id' :city='resume.city' :shedule='resume.shedule' :content='resume.content'></appFrontResume>
+						<appFrontResume
+						v-for='resume in resumes'
+						:key='resume.id'
+						:id='resume.id'
+						:title='resume.title'
+						:shedule='resume.shedule'
+						:salary='resume.salary'
+						:surname='resume.surname'
+						:name='resume.name'
+						:city='resume.city'
+						:info='resume.info'
+						:thumb='resume.thumb'
+						:publish='resume.publish'
+						></appFrontResume>
 					</div>
 				</div>
 				<appToTopBlock></appToTopBlock>

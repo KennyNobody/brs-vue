@@ -115,12 +115,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            @include r(1200) {
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
         }
         &__logo {
             display: block;
+            @include r(1200) {
+                order: -1;
+            }
             img {
                 width: 245px;
                 height: auto;
+                @include r(700) {
+                    width: 170px;
+                }
             }
         }
         &__topline-info {
@@ -130,6 +140,13 @@
             padding-left: 48px;
             padding-right: 48px;
             align-items: flex-end;
+            @include r(1200) {
+                width: 100%;
+                display: block;
+                padding-left: 0px;
+                padding-right: 0px;
+                padding-top: 15px;
+            }
         }
         &__column {
             margin-right: 57px;
@@ -142,6 +159,9 @@
             font-size: 16px;
             line-height: 23px;
             color: $light;
+            @include r(1200) {
+                margin-bottom: 3px;
+            }
         }
         &__phone {
             color: $light;
@@ -153,12 +173,18 @@
         &__text {
             font-size: 14px;
             line-height: 20px;
+            @include r(1200) {
+                margin-bottom: 3px;
+            }
         }
         &__user {
             position: relative;
             width: 102px;
             height: 40px;
             box-sizing: border-box;
+            @include r(1200) {
+                order: -1;
+            }
         }
         &__info {
             position: absolute;

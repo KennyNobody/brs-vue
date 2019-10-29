@@ -5,7 +5,13 @@
                 Интересное <router-link class="h2--link" to="/news/">о работе</router-link>
             </h2>
             <div class="front-news__articles">
-                <appFrontArticle v-for="post in posts" :key="post.id" :title="post.title" :publish="post.publish" :link="post.link" :thumb="post.thumb" :id="post.id"></appFrontArticle>
+                <appFrontArticle
+                v-for="post in posts"
+                :key="post.id" :title="post.title"
+                :publish="post.publish"
+                :thumb="post.thumb"
+                :id="post.id"
+                ></appFrontArticle>
             </div>
             <appToTopBlock></appToTopBlock>
         </div>

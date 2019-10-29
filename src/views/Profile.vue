@@ -69,7 +69,162 @@
 				</div>
 				<div class="p-list">
 					<p class="p-list__h">
-						Мои объявлениия
+						Мои вакансии
+					</p>
+					<article class="p-list__article">
+						<div class="p-list__date">
+							<p class="p-list__number">
+								20
+							</p>
+							<p class="p-list__mounth">
+								июня
+							</p>
+						</div>
+						<div class="p-list__content">
+							<p class="p-list__title">
+								Пиццамейкер
+							</p>
+							<div class="p-list__change">
+								<span>
+									Изменить
+								</span>
+							</div>
+							<div class="p-list__remove">
+								<span>
+									Удалить
+								</span>
+							</div>
+						</div>
+					</article>
+					<article class="p-list__article">
+						<div class="p-list__date">
+							<p class="p-list__number">
+								20
+							</p>
+							<p class="p-list__mounth">
+								июня
+							</p>
+						</div>
+						<div class="p-list__content">
+							<p class="p-list__title">
+								Пиццамейкер
+							</p>
+							<div class="p-list__change">
+								<span>
+									Изменить
+								</span>
+							</div>
+							<div class="p-list__remove">
+								<span>
+									Удалить
+								</span>
+							</div>
+						</div>
+					</article>
+					<article class="p-list__article">
+						<div class="p-list__date">
+							<p class="p-list__number">
+								20
+							</p>
+							<p class="p-list__mounth">
+								июня
+							</p>
+						</div>
+						<div class="p-list__content">
+							<p class="p-list__title">
+								Пиццамейкер
+							</p>
+							<div class="p-list__change">
+								<span>
+									Изменить
+								</span>
+							</div>
+							<div class="p-list__remove">
+								<span>
+									Удалить
+								</span>
+							</div>
+						</div>
+					</article>
+					<article class="p-list__article">
+						<div class="p-list__date">
+							<p class="p-list__number">
+								20
+							</p>
+							<p class="p-list__mounth">
+								июня
+							</p>
+						</div>
+						<div class="p-list__content">
+							<p class="p-list__title">
+								Пиццамейкер
+							</p>
+							<div class="p-list__change">
+								<span>
+									Изменить
+								</span>
+							</div>
+							<div class="p-list__remove">
+								<span>
+									Удалить
+								</span>
+							</div>
+						</div>
+					</article>
+					<article class="p-list__article">
+						<div class="p-list__date">
+							<p class="p-list__number">
+								20
+							</p>
+							<p class="p-list__mounth">
+								июня
+							</p>
+						</div>
+						<div class="p-list__content">
+							<p class="p-list__title">
+								Пиццамейкер
+							</p>
+							<div class="p-list__change">
+								<span>
+									Изменить
+								</span>
+							</div>
+							<div class="p-list__remove">
+								<span>
+									Удалить
+								</span>
+							</div>
+						</div>
+					</article>
+					<article class="p-list__article">
+						<div class="p-list__date">
+							<p class="p-list__number">
+								20
+							</p>
+							<p class="p-list__mounth">
+								июня
+							</p>
+						</div>
+						<div class="p-list__content">
+							<p class="p-list__title">
+								Пиццамейкер
+							</p>
+							<div class="p-list__change">
+								<span>
+									Изменить
+								</span>
+							</div>
+							<div class="p-list__remove">
+								<span>
+									Удалить
+								</span>
+							</div>
+						</div>
+					</article>
+				</div>
+				<div class="p-list">
+					<p class="p-list__h">
+						Мои резюме
 					</p>
 					<article class="p-list__article">
 						<div class="p-list__date">
@@ -363,6 +518,7 @@
 		}
 	}
 	.p-list {
+		margin-bottom: 40px;
 		&__h {
 			font-weight: bold;
 			font-size: 24px;

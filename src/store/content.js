@@ -59,6 +59,22 @@ export default {
 					url: '/post-edit'
 				},
 				{
+					title: 'Добавить вакансию',
+					url: '/vacancy-add'
+				},
+				{
+					title: 'Редактировать вакансию',
+					url: '/vacancy-edit'
+				},
+				{
+					title: 'Добавить резюме',
+					url: '/resume-add'
+				},
+				{
+					title: 'Редактировать резюме',
+					url: '/resume-edit'
+				},
+				{
 					title: 'Профиль',
 					url: '/profile'
 				},
@@ -116,19 +132,6 @@ export default {
 				}
 				]
 			}
-			// company: {
-			// 	login: null,
-			// 	password: null,
-			// 	passwordAgain: null,
-			// 	formOrganization: null,
-			// 	companyName: null,
-			// 	inn: null,
-			// 	city: null,
-			// 	name: null,
-			// 	surname: null,
-			// 	phone: null,
-			// 	submit: null
-			// }
 		}
 	},
 	mutations: {

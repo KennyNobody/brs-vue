@@ -15,44 +15,7 @@
 							</time>
 						</p>
 						<div class="s-job__text">
-							<p>Додо Пицца - сеть пиццерий № 1 в России.</p>
-							<p>В Калининграде имеет 3 пиццерии: на Горького 104б, Дзержинского, 57б, Советский пр,1 (круглосуточная).</p>
-							<p>Требования: четкое выполнение стандартов компании. </p>
-							<p>Обязанности: работа с тестом, заготовки, упаковка, уборка рабочего места.</p>
-							<br>
-							<p>Условия:</p>
-							<ul>
-								<li>официальное устройство (иностранных граждан тоже берем)</li>
-								<li>
-									выплаты ЗП 2 раза в месяц
-								</li>
-								<li>
-									бесплатные обеды
-								</li>
-								<li>
-									бесплатное обучение
-								</li>
-								<li>
-									возможность стать менеджером, замом управляющего и управляющим
-								</li>
-								<li>
-									дружная команда
-								</li>
-								<li>
-									поощрения лучших сотрудников
-								</li>
-								<li>
-									униформа предоставляется
-								</li>
-								<li>
-									ночной развоз сотрудников
-								</li>
-								<li>
-									оплачиваемая медицинская книжка
-								</li>
-							</ul>
-							<p>ЗП от 25 000 до 40 000</p>
-							<p>Оплата с 1 дня работы, даже стажерских часов</p>
+							{{ job.content }}
 						</div>
 					</div>
 					<div class="s-job__info">
@@ -74,7 +37,7 @@
 							<appProbation v-else></appProbation>
 						</div>
 						<p class="s-job__price">
-							от {{ job.price }} руб.
+							от {{ job.salary }} руб.
 						</p>
 						<div class="s-job__information">
 							<p class="s-job__information-title">
@@ -100,7 +63,19 @@
 						Другие вакансии
 					</h3>
 					<div class="s-job__other-articles">
-						<appFrontJob v-for="job in jobs" :key="job.id" :title="job.title" :publish="job.publish" :link="job.link" :thumb="job.thumb" :city='job.city' :price="job.price" :organization='job.organization' :shedule='job.shedule'></appFrontJob>
+						<appFrontJob
+						v-for="(job, i) in jobs"
+						:key="i"
+						:id="job.id"
+						:title="job.title"
+						:publish="job.publish"
+						:link="job.id"
+						:thumb="job.thumb"
+						:city='job.city'
+						:salary="job.salary"
+						:organization='job.organization'
+						:shedule='job.shedule'
+						></appFrontJob>
 					</div>
 				</div>
 				<appToTopBlock></appToTopBlock>

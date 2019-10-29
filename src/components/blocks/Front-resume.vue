@@ -15,11 +15,11 @@
 					{{ city }}
 				</p>
 			</div>
-			<appFullday v-if='shedule === "Полная"'></appFullday>
-			<appPartialday v-else-if='shedule === "Частичная"'></appPartialday>
+			<appFullday v-if='shedule === "Полная занятость"'></appFullday>
+			<appPartialday v-else-if='shedule === "Частичная занятость"'></appPartialday>
 			<appProbation v-else></appProbation>
 			<p class="front-resume__discript" v-line-clamp='2'>
-				{{ content }}
+				{{ info }}
 			</p>
 		</div>
 		<router-link class="front-resume__btn" :to='"/resumes/" + id'>
@@ -47,7 +47,7 @@
 			appPartialday,
 			appProbation
 		},
-		props: ['name', 'surname', 'publish', 'thumb', 'city', 'content', 'id', 'shedule']
+		props: ['name', 'surname', 'publish', 'thumb', 'city', 'info', 'id', 'shedule']
 	}
 </script>
 

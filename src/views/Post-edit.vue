@@ -222,11 +222,6 @@
 		mounted () {
 			this.id = this._uid
 		},
-		// computed: {
-		// 	loading () {
-		// 		return this.$store.getters.loading
-		// 	}
-		// },
 		methods: {
 			showImagePrompt (command) {
 				const src = prompt('Введите url изображения')

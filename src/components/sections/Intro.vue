@@ -3,7 +3,7 @@
 		<div class="intro__wrapper" v-bind:class="{ 'intro__wrapper--front': $route.name === 'home' }">
 			<div class="intro__navline" v-bind:class="{ 'intro__navline--front': $route.name === 'home', 'intro__navline--drop': openDropMenu }">
 				<div class="container intro__nav-container">
-					<div class="intro__burger" v-on:click="openDropMenu = !openDropMenu">
+					<div class="intro__burger" v-on:click="openDropMenu = !openDropMenu" v-if='isUserLogIn'>
 						<svg class="intro__burger-icon intro__burger-icon--opened" v-if="openDropMenu == true" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" key='1'>
 							<path d="M1 1L15 15M15 1L1 15" stroke-width="2"/>
 						</svg>
@@ -26,7 +26,7 @@
 					</div>
 					<appSocialLinks></appSocialLinks>
 				</div>
-				<transition name="intro__drop-animate">
+				<transition name="intro__drop-animate" v-if='isUserLogIn'>
 					<div class="intro__drop" v-show="openDropMenu == true">
 						<div class="container intro__drop-container">
 							<nav class="intro__drop-nav">
@@ -71,6 +71,9 @@
 		computed: {
 			headerLinks () {
 				return this.$store.getters.content.links.headerLinks
+			},
+			isUserLogIn () {
+				return this.$store.getters.isUserLogIn
 			}
 		},
 		components: {
@@ -123,6 +126,9 @@
 			z-index: 3;
 			background-color: $dark;
 			transition: 0.3s all;
+			@include r(700) {
+				display: none;
+			}
 			&--front {
 				background: rgba(37, 44, 47, 0.8);
 			}
@@ -165,6 +171,7 @@
 		}
 		&__burger {
 			cursor: pointer;
+			margin-right: 55px;
 			&:hover {
 				svg {
 					fill: $accent;
@@ -188,7 +195,7 @@
 		}
 		&__link {
 			display: block;
-			margin-left: 55px;
+			margin-right: 55px;
 			text-decoration: none;
 			color: $light;
 			font-size: 14px;

@@ -40,6 +40,9 @@
 <style lang="scss">
     .social-links {
         display: flex;
+        @include r(1200) {
+            justify-content: center;
+        }
         &__link {
             display: flex;
             height: 24px;

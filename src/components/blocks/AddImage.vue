@@ -1,5 +1,6 @@
 <template>
 	<label class="add-image">
+		<img class="add-image__image" v-if="imageSrc" v-bind:src="imageSrc" alt="">
 		<p class="add-image__title">
 			Загрузите сюда <br> свою фотографию
 		</p>
@@ -8,7 +9,12 @@
 			<line x1="20" y1="18" x2="20" y2="26" stroke="white" stroke-width="2"/>
 			<line x1="16" y1="22" x2="24" y2="22" stroke="white" stroke-width="2"/>
 		</svg>
-		<input type="file" class="add-image__input">
+		<input
+		v-on:change="onImgChange"
+		type="file"
+		class="add-image__input"
+		accept="image/*"
+		>
 	</label>
 </template>
 
@@ -17,10 +23,24 @@
 	export default {
 		name: 'addImage',
 		data () {
-			return {}
+			return {
+				image: null,
+				imageSrc: ''
+			}
 		},
 		computed: {},
-		methods: {}
+		methods: {
+			onImgChange (e) {
+				const file = e.target.files[0]
+				const reader = new FileReader()
+				reader.onload = e => {
+					this.imageSrc = reader.result
+				}
+				this.image = file
+				reader.readAsDataURL(file)
+				this.$emit('inputChanged', this.image)
+			}
+		}
 	}
 </script>
 
@@ -36,6 +56,7 @@
 		transition: 0.3s;
 		color: #80929c;
 		margin-bottom: 18px;
+		position: relative;
 		&:hover {
 			border-color: $yellow;
 			color: $yellow;
@@ -54,6 +75,17 @@
 		}
 		&__input {
 			display: none;
+		}
+		&__image {
+			position: absolute;
+			top: 0px;
+			bottom: 0px;
+			left: 0px;
+			right: 0px;
+			object-fit: cover;
+			height: 100%;
+			width: 100%;
+			opacity: 0.15
 		}
 	}
 </style>

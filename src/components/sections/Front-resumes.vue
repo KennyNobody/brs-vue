@@ -5,7 +5,29 @@
                 Новые <router-link class="h2--link" to="/resumes/">резюме</router-link>
             </h2>
             <div class='front-resumes__articles'>
-                <appFrontResume v-for='resume in resumes' :key='resume.id' :name='resume.name' :surname='resume.surname' :publish='resume.publish' :thumb='resume.thumb' :id='resume.id' :city='resume.city' :shedule='resume.shedule' :content='resume.content'></appFrontResume>
+                <appFrontResume
+                v-for='resume in resumes'
+                :key='resume.id'
+                :id='resume.id'
+                :title='resume.title'
+                :theme='resume.theme'
+                :shedule='resume.shedule'
+                :experience='resume.experience'
+                :salary='resume.salary'
+                :surname='resume.surname'
+                :name='resume.name'
+                :sex='resume.sex'
+                :city='resume.city'
+                :education='resume.education'
+                :info='resume.info'
+                :phone='resume.phone'
+                :email='resume.email'
+                :thumb='resume.thumb'
+                :file='resume.file'
+                :publish='resume.publish'
+                ></appFrontResume>
+                <div class="front-resume--clear"></div>
+                <div class="front-resume--clear"></div>
             </div>
         </div>
     </section>

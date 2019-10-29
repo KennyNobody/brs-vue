@@ -5,7 +5,7 @@
 			<div class="container">
 				<form class="form">
 					<h2 class="h2">
-						Регистрация
+						Вакансия
 					</h2>
 					<div class="form__columns">
 						<div class="form__column form__column--left">
@@ -83,7 +83,7 @@
 	import appTextareaInput from '@/components/blocks/Textarea.vue'
 
 	export default {
-		name: 'registration',
+		name: 'vacancy-edit',
 		components: {
 			appBreadcrumbs,
 			appTextInput,

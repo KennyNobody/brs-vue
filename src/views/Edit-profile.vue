@@ -3,7 +3,7 @@
 		<appBreadcrumbs></appBreadcrumbs>
 		<section class="registration">
 			<div class="container">
-				<form class="form">
+				<form class="form" >
 					<h2 class="h2">
 						Редактировать профиль
 					</h2>
@@ -13,44 +13,88 @@
 								<p class="form__title">
 									Данные аккаунта
 								</p>
-								<appTextInput v-on:inputChanged="email = $event" name='Email' v-bind:placeholder="email"></appTextInput>
-								<appTextInput v-on:inputChanged="password = $event" name='Пароль'></appTextInput>
-								<appTextInput v-on:inputChanged="passwordAgain = $event" name='Повторите пароль'></appTextInput>
+
+								<appTextInput
+								v-on:inputChanged="email = $event"
+								name='Email'
+								v-bind:placeholder="localUser.email"
+								></appTextInput>
+
+								<appTextInput
+								v-on:inputChanged="password = $event"
+								name='Новый пароль'
+								></appTextInput>
+
+								<appTextInput
+								v-on:inputChanged="passwordAgain = $event"
+								name='Повторите пароль'
+								></appTextInput>
 							</div>
 							<div class="form__section">
 								<p class="form__title">
 									Контактная информация
 								</p>
-								<appTextInput v-on:inputChanged="name = $event" name='Имя' v-bind:placeholder="name"></appTextInput>
-								<appTextInput v-on:inputChanged="surname = $event" name='Фамилия' v-bind:placeholder="surname"></appTextInput>
-								<appTextInput v-on:inputChanged="phone = $event" name='Телефон' v-bind:placeholder="phone"></appTextInput>
+								<appTextInput v-on:inputChanged="localUser.name = $event" name='Имя' v-bind:placeholder="localUser.name"></appTextInput>
+								<appTextInput v-on:inputChanged="localUser.surname = $event" name='Фамилия' v-bind:placeholder="localUser.surname"></appTextInput>
+								<appTextInput v-on:inputChanged="localUser.phone = $event" name='Телефон' v-bind:placeholder="localUser.phone"></appTextInput>
 							</div>
 							<div class="form__section">
 								<p class="form__title">
 									Параметры
 								</p>
-								<appTextInput v-on:inputChanged="education = $event" name='Образование' v-bind:placeholder="education"></appTextInput>
-								<appRadioInput v-on:inputChanged="sex = $event" name='Пол'></appRadioInput>
-								<appDateInput v-on:inputDayChanged="birthDay = $event" v-on:inputMounthChanged="birthMounth = $event" v-on:inputYearChanged="birthYear = $event" name='Дата рождения'></appDateInput>
-								<appTextareaInput v-on:inputChanged="info = $event" name='О себе' v-bind:placeholder="info"></appTextareaInput>
-								<appTextInput v-on:inputChanged="country = $event" name='Гражданство' v-bind:placeholder="country"></appTextInput>
+								<appTextInput v-on:inputChanged="localUser.education = $event" name='Образование' v-bind:placeholder="localUser.education"></appTextInput>
+
+								<div class="radio">
+									<p class="radio__title">
+										Пол
+									</p>
+									<div class="radio__wrap">
+										<label class="radio__label" v-bind:class="{ 'radio__label--checked': localUser.sex === 'Мужской' && 'мужской' }">
+											<div class="radio__label-name">
+												<p>Мужской</p>
+											</div>
+											<input type="radio" v-model="localUser.sex" name="sex" class="radio__input" value="Мужской">
+										</label>
+										<div class="radio__separator" v-if="!localUser.sex"></div>
+										<label class="radio__label" v-bind:class="{ 'radio__label--checked': localUser.sex === 'Женский' && 'женский' }">
+											<div class="radio__label-name">
+												<p>Женский</p>
+											</div>
+											<input type="radio" v-model="localUser.sex" name="sex" class="radio__input" value="Женский">
+										</label>
+									</div>
+								</div>
+
+								<appDateInput
+								v-on:inputDayChanged="localUser.birthDay = $event"
+								v-on:inputMounthChanged="localUser.birthMounth = $event"
+								v-on:inputYearChanged="localUser.birthYear = $event"
+								name='Дата рождения'
+								v-bind:placeholders='{
+									placeholderDay : localUser.birthDay,
+									placeholderMounth : localUser.birthMounth,
+									placeholderYear : localUser.birthYear
+								}'
+								></appDateInput>
+								<appTextareaInput v-on:inputChanged="localUser.info = $event" name='О себе' v-bind:placeholder="localUser.info"></appTextareaInput>
+								<appTextInput v-on:inputChanged="localUser.country = $event" name='Гражданство' v-bind:placeholder="localUser.country"></appTextInput>
 							</div>
 							<div class="form__section form__section--dropdown">
 								<template v-if="showRegCompany">
 									<p class="form__title">
 										Об организации
 									</p>
-									<appTextInput v-on:inputChanged="formOrganization = $event" name='Организационная форма' v-bind:placeholder="formOrganization"></appTextInput>
-									<appTextInput v-on:inputChanged="companyName = $event" name='Название компании' v-bind:placeholder="companyName"></appTextInput>
-									<appTextInput v-on:inputChanged="inn = $event" name='ИНН' v-bind:placeholder="inn"></appTextInput>
-									<appTextInput v-on:inputChanged="city = $event" name='Город' v-bind:placeholder="city"></appTextInput>
+									<appTextInput v-on:inputChanged="localUser.formOrganization = $event" name='Организационная форма' v-bind:placeholder="localUser.formOrganization"></appTextInput>
+									<appTextInput v-on:inputChanged="localUser.companyName = $event" name='Название компании' v-bind:placeholder="localUser.companyName"></appTextInput>
+									<appTextInput v-on:inputChanged="localUser.inn = $event" name='ИНН' v-bind:placeholder="localUser.inn"></appTextInput>
+									<appTextInput v-on:inputChanged="localUser.city = $event" name='Город' v-bind:placeholder="localUser.city"></appTextInput>
 								</template>
 								<button class="form__add-company" v-on:click.prevent="showRegCompany = !showRegCompany" v-if='!showRegCompany'>
 									Добавить юрлицо
 								</button>
 							</div>
-							<button class="form__submit" v-on:click.prevent="submitRegForm">
-								Продолжить
+							<button class="form__submit" v-on:click.prevent="saveLocalUser">
+								Сохранить
 							</button>
 							<appToTopBlock></appToTopBlock>
 						</div>
@@ -72,7 +116,6 @@
 	import appDateInput from '@/components/blocks/InputDate.vue'
 	import appRadioInput from '@/components/blocks/Radio.vue'
 	import appTextareaInput from '@/components/blocks/Textarea.vue'
-	import * as firebase from 'firebase'
 
 	export default {
 		name: 'editProfile',
@@ -80,88 +123,38 @@
 			appBreadcrumbs,
 			appTextInput,
 			appToTopBlock,
+			// eslint-disable-next-line
 			appRadioInput,
 			appTextareaInput,
 			appDateInput,
 			appAddLogo
 		},
-		data () {
-			return {
-				password: null,
-				passwordAgain: null,
-				education: null,
-				sex: null,
-				birthDay: null,
-				birthMounth: null,
-				birthYear: null,
-				info: null,
-				country: null,
-				formOrganization: null,
-				companyName: null,
-				inn: null,
-				city: null,
-				name: null,
-				surname: null,
-				phone: null,
-				email: null,
-				showRegCompany: false
-			}
-		},
 		methods: {
-			submitRegForm () {
-				const regUserInfo = {
-					userId: null,
-					password: this.password,
-					education: this.education,
-					sex: this.sex,
-					info: this.info,
-					country: this.country,
-					birthDay: this.birthDay,
-					birthMounth: this.birthMounth,
-					birthYear: this.birthYear,
-					formOrganization: this.formOrganization,
-					companyName: this.companyName,
-					inn: this.inn,
-					city: this.city,
-					name: this.name,
-					surname: this.surname,
-					phone: this.phone,
-					email: this.email
-				}
-				if (regUserInfo) {
-					this.$store.dispatch('registerUser', regUserInfo)
-					.then(() => {
-						this.$store.dispatch('addLocalUser', regUserInfo)
-					})
-					.catch(() => {})
-				}
+			saveLocalUser () {
+				this.$store.dispatch('changeLocalUser')
+				.then(() => {
+					console.log('Изменено')
+				})
+				.catch(() => {})
 			}
 		},
-		mounted () {
-			if (this.$store.getters.localUser.companyName) {
-				this.showRegCompany = true
-			} else {
-				this.showRegCompany = false
+		computed: {
+			localUser: {
+				get () {
+					return this.$store.getters.localUser
+				},
+				set (value) {
+					console.log('Изменили')
+					this.$store.commit('changeLocalUser', value)
+				}
+			},
+			showRegCompany () {
+				if (this.localUser.companyName !== 'Не указано') {
+					return true
+				} else {
+					return false
+				}
 			}
-
-			firebase.database().ref('users').once('value')
-			.then(() => {
-				this.education = this.$store.getters.localUser.education
-				this.sex = this.$store.getters.localUser.sex
-				this.birthDay = this.$store.getters.localUser.birthDay
-				this.birthMounth = this.$store.getters.localUser.birthMounth
-				this.birthYear = this.$store.getters.localUser.birthYear
-				this.info = this.$store.getters.localUser.info
-				this.country = this.$store.getters.localUser.country
-				this.formOrganization = this.$store.getters.localUser.formOrganization
-				this.companyName = this.$store.getters.localUser.companyName
-				this.inn = this.$store.getters.localUser.inn
-				this.city = this.$store.getters.localUser.city
-				this.name = this.$store.getters.localUser.name
-				this.surname = this.$store.getters.localUser.surname
-				this.phone = this.$store.getters.localUser.phone
-				this.email = this.$store.getters.localUser.email
-			})
 		}
 	}
 </script>

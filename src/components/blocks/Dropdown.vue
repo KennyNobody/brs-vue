@@ -3,14 +3,17 @@
 		<p class="input__title">
 			{{ name }}
 		</p>
-		<input type="text" class="input__input" v-model="inputData" v-on:input="postInfo" v-bind:placeholder="placeholder">
+		<select class="input__dropdown" v-model="inputData" v-on:change="postInfo">
+			<option value disabled selected>-</option>
+			<option :key="value.id" v-for="value in values">{{ value }}</option>
+		</select>
 	</label>
 </template>
 
 <script>
 	export default {
-		name: 'textInput',
-		props: ['name', 'placeholder'],
+		name: 'dropdown',
+		props: ['name', 'values'],
 		data () {
 			return {
 				inputData: null
@@ -43,9 +46,10 @@
 			flex-grow: 1;
 			min-width: 0px;
 		}
-		&__input {
+		&__dropdown {
 			width: 66%;
 			flex-shrink: 0;
+			cursor: pointer;
 			display: block;
 			border: 1px solid #D6E0E6;
 			border-radius: 4px;
@@ -53,6 +57,8 @@
 			padding-left: 10px;
 			padding-right: 10px;
 			outline: none;
+			font-size: 16px;
+			line-height: 22px;
 			&:focus {
 				border-color: $yellow;
 			}

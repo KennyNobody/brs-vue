@@ -1,6 +1,7 @@
 <template>
 	<div class="add-logo">
 		<label class="add-logo__label">
+			<img class="add-logo__image" v-if="imageSrc" v-bind:src="imageSrc" alt="">
 			<p class="add-logo__title">
 				Загрузите сюда свое <br> изображение (это может<br> быть логотип фирмы)
 			</p>
@@ -10,7 +11,13 @@
 					<path d="M24.7058 24.0002H21.1763V20.4707C21.1763 19.7649 20.7058 19.2942 19.9998 19.2942C19.294 19.2942 18.8233 19.7647 18.8233 20.4707V24.0002H15.2938C14.588 24.0002 14.1173 24.4707 14.1173 25.1767C14.1173 25.8825 14.5879 26.3532 15.2938 26.3532H18.8233V29.8827C18.8233 30.5885 19.2938 31.0592 19.9998 31.0592C20.7056 31.0592 21.1763 30.5886 21.1763 29.8827V26.3532H24.7058C25.4116 26.3532 25.8823 25.8827 25.8823 25.1767C25.8822 24.4707 25.4116 24.0002 24.7058 24.0002Z"/>
 				</g>
 			</svg>
-			<input class="add-logo__input" type="file">
+			<input
+			v-on:change="onLogoChange"
+			ref="logoInput"
+			class="add-logo__input"
+			type="file"
+			accept="image/*"
+			>
 		</label>
 	</div>
 </template>
@@ -20,10 +27,24 @@
 	export default {
 		name: 'addLogo',
 		data () {
-			return {}
+			return {
+				image: null,
+				imageSrc: ''
+			}
 		},
 		computed: {},
-		methods: {}
+		methods: {
+			onLogoChange (e) {
+				const file = e.target.files[0]
+				const reader = new FileReader()
+				reader.onload = e => {
+					this.imageSrc = reader.result
+				}
+				this.image = file
+				reader.readAsDataURL(file)
+				this.$emit('inputChanged', this.image)
+			}
+		}
 	}
 </script>
 
@@ -41,6 +62,7 @@
 			padding-bottom: 60px;
 			border-radius: 4px;
 			margin-bottom: 5px;
+			position: relative;
 			&:hover {
 				border-color: $yellow;
 				color: $yellow;
@@ -63,6 +85,17 @@
 		}
 		&__input {
 			display: none;
+		}
+		&__image {
+			position: absolute;
+			top: 0px;
+			bottom: 0px;
+			left: 0px;
+			right: 0px;
+			object-fit: cover;
+			height: 100%;
+			width: 100%;
+			opacity: 0.15
 		}
 	}
 </style>

@@ -2,41 +2,21 @@
 	<section class="breadcrumbs">
 		<div class="container breadcrumbs__container">
 			<nav class="breadcrumbs__nav">
-				<!-- <router-link class="breadcrumbs__link" to="/">
-					Главная
-				</router-link>
-				<div class="breadcrumbs__decor">
-					<svg viewBox="0 0 7 10" xmlns="http://www.w3.org/2000/svg">
-						<path d="M1 1L5 5L1 9"/>
-					</svg>
-				</div>
-				<span class="breadcrumbs__link breadcrumbs__link--now">
-					Страница
-				</span> -->
 				<template v-for="(breadcrumb, index) in breadcrumbList" >
-					<div class="breadcrumbs__link" :key="index" @click="routeTo(index)" :class="{'linked': !!breadcrumb.link}">
-						{{ breadcrumb.name }}
-					</div>
-					<div class="breadcrumbs__decor" :key="index" v-if="!!breadcrumb.link">
-						<svg viewBox="0 0 7 10" xmlns="http://www.w3.org/2000/svg">
-							<path d="M1 1L5 5L1 9"/>
-						</svg>
-					</div>
+					<template>
+						<div class="breadcrumbs__link" :key="index" @click="routeTo(index)" :class="{'linked': !!breadcrumb.link}">
+							{{ breadcrumb.name }}
+						</div>
+						<div class="breadcrumbs__decor" :key="index + 'i'" v-if="!!breadcrumb.link">
+							<svg viewBox="0 0 7 10" xmlns="http://www.w3.org/2000/svg">
+								<path d="M1 1L5 5L1 9"/>
+							</svg>
+						</div>
+					</template>
 				</template>
-<!-- 				<ul>
-					<li
-					v-for="(breadcrumb, idx) in breadcrumbList"
-					:key="idx"
-					@click="routeTo(idx)"
-					:class="{'linked': !!breadcrumb.link}">
-
-					{{ breadcrumb.name }}
-
-				</li>
-			</ul> -->
-		</nav>
-	</div>
-</section>
+			</nav>
+		</div>
+	</section>
 </template>
 
 <script>

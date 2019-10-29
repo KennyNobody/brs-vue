@@ -95,13 +95,16 @@ export default {
 			firebase.database().ref('users').child(getters.user.id).set(newLocalUser)
 			commit('setLocalUser', newLocalUser)
 		},
+		changeLocalUser ({ commit, getters }, payload) {
+			firebase.database().ref('users').child(getters.user.id).set(getters.localUser)
+		},
 		loginUser ({ commit }, { email, password }) {
 			commit('clearError')
 			commit('setLoading', true)
 			firebase.auth().signInWithEmailAndPassword(email, password)
 			.then(user => {
 				commit('setUser', new User(user.uid))
-				commit('setLoading')
+				commit('setLoading', false)
 				router.push('/')
 			})
 			.catch(error => {

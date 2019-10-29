@@ -5,6 +5,7 @@ import axios from 'axios'
 import store from './store'
 import * as firebase from 'firebase'
 import lineClamp from 'vue-line-clamp'
+import requests from './requests'
 
 Vue.config.productionTip = false
 
@@ -20,7 +21,7 @@ new Vue({
 			authDomain: 'brs-vue.firebaseapp.com',
 			databaseURL: 'https://brs-vue.firebaseio.com',
 			projectId: 'brs-vue',
-			storageBucket: '',
+			storageBucket: 'brs-vue.appspot.com',
 			messagingSenderId: '711242959576',
 			appId: '1:711242959576:web:35099922803da125'
 		})
@@ -32,5 +33,8 @@ new Vue({
 		})
 
 		this.$store.dispatch('fetchPosts')
+		this.$store.dispatch('fetchJobs')
+		this.$store.dispatch('fetchResumes')
+		// console.log(requests)
 	}
 }).$mount('#app')

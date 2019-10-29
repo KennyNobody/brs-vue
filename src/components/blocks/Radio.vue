@@ -1,5 +1,5 @@
 <template>
-	<div class="radio radio--required">
+	<div class="radio">
 		<p class="radio__title">
 			{{ name }}
 		</p>
