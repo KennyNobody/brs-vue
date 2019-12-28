@@ -5,7 +5,7 @@
 			<div class="container">
 				<form class="form">
 					<h2 class="h2">
-						Вакансия
+						Редактировать вакансию/резюме
 					</h2>
 					<div class="form__columns">
 						<div class="form__column form__column--left">

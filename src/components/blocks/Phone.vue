@@ -4,7 +4,7 @@
             Показать телефон
         </p>
         <p class="phone__number">
-            {{ phone }}
+            +79999999999
         </p>
     </div>
 </template>
